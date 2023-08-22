@@ -1,6 +1,7 @@
 # 环境搭建
 
 * 课程官网：[https://15445.courses.cs.cmu.edu/spring2023/](https://15445.courses.cs.cmu.edu/spring2023/)
+* 课程GitHub：[https://github.com/cmu-db/bustub](https://github.com/cmu-db/bustub)
 * 参考书目：[数据库系统概念（第七版）](https://www.db-book.com/)
 * OS：Ubuntu 22.04.2(WSL2)
 
@@ -29,3 +30,21 @@ clang-format --version
 #Ubuntu clang-format version 14.0.0-1ubuntu1
 ```
 
+## 编译代码
+
+```sh
+mkdir build
+cd build
+cmake ..
+make trie_test
+#出现编译进程说明顺利编译
+./test/trie_test
+```
+
+## 格式化代码
+
+```sh
+make format
+make check-lint
+make check-clang-tidy-p0
+```
