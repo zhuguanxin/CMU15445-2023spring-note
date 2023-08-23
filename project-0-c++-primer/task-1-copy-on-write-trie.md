@@ -56,3 +56,9 @@ TEST(TrieTest, BasicPutTest) {
 }
 ```
 
+流程图：
+
+
+
+<figure><img src="../.gitbook/assets/put.png" alt=""><figcaption></figcaption></figure>
+
