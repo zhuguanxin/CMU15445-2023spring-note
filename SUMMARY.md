@@ -5,4 +5,4 @@
 
 ## project#0 C++ primer
 
-* [task#1 copy on write Trie](project-0-c++-primer/task-1-copy-on-write-trie.md)
+* [task#1 Copy on Write Trie](project-0-c++-primer/task-1-copy-on-write-trie.md)
