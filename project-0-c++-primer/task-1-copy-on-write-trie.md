@@ -36,6 +36,12 @@
 
 若要创建新节点，应在`TrieNode`类上使用`Clone`函数。若要重用原有节点，你可以复制`std::shared_ptr<TrieNode>`（复制一个智能指针而不是复制指向的data）。不应使用`new`和`delete`分配内存。
 
+## 初始文件类关系图
+
+
+
+<figure><img src="../.gitbook/assets/task1.png" alt=""><figcaption></figcaption></figure>
+
 ## Put(key,value)
 
 首先阅读测试用例`/test/primer/trie_test.cpp`。
