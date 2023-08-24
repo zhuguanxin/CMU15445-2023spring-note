@@ -66,3 +66,13 @@ TEST(TrieTest, BasicPutTest) {
 * key是空串：在原Trie的root上改为TrieNodeWithValue
 
 有关智能指针的处理可以阅读[@迷路新主楼](https://zhuanlan.zhihu.com/p/624300079)
+
+## Get(key)
+
+遍历key，若一直能找到node就强转为
+
+```cpp
+auto temp_ptr = dynamic_cast<const TrieNodeWithValue<T> *>(ptr.get());
+```
+
+获取指针，若非空就返回该指针。中途一旦没找到就返回nullptr。
