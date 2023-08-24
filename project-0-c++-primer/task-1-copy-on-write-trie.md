@@ -56,9 +56,13 @@ TEST(TrieTest, BasicPutTest) {
 }
 ```
 
-流程图：
 
 
+<figure><img src="../.gitbook/assets/put.png" alt=""><figcaption><p><code>Put(key,value)</code>流程图</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/put.png" alt=""><figcaption></figcaption></figure>
+当我们插入节点，并不是在原Trie上操作，而是在一个新Trie上不断Clone新节点。采取的方法是：先遍历key到倒数第二个字符，只要原trie有对应的node，直接Clone，没有就new个TrieNode接着遍历。到最后一个字符，看原Trie有没有对应的node，若有则改为TrieNodeWithValue接管原node的chilren，若没有则new个TrieNodeWithValue。最后调用trie的构造函数返回，每次new都是调用构造函数实现。要注意两个边界条件：
 
+* 原Trie是空树：new个root递归调用Put
+* key是空串：在原Trie的root上改为TrieNodeWithValue
+
+有关智能指针的处理可以阅读[@迷路新主楼](https://zhuanlan.zhihu.com/p/624300079)
