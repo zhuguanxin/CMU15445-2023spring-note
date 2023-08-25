@@ -67,6 +67,10 @@ TEST(TrieTest, BasicPutTest) {
 
 有关智能指针的处理可以阅读[@迷路新主楼](https://zhuanlan.zhihu.com/p/624300079)
 
+```cpp
+// Note: if you want to convert `unique_ptr` into `shared_ptr`, you can use `std::shared_ptr<T>(std::move(ptr))`.
+```
+
 ## Get(key)
 
 遍历key，若一直能找到node就强转为
@@ -76,3 +80,52 @@ auto temp_ptr = dynamic_cast<const TrieNodeWithValue<T> *>(ptr.get());
 ```
 
 获取指针，若非空就返回该指针。中途一旦没找到就返回nullptr。
+
+
+
+## Remove(key,value)
+
+阅读几个测试用例：
+
+```cpp
+TEST(TrieTest, BasicRemoveTest1) {
+  auto trie = Trie();
+  // Put something
+  trie = trie.Put<uint32_t>("test", 2333);
+  ASSERT_EQ(*trie.Get<uint32_t>("test"), 2333);
+  trie = trie.Put<uint32_t>("te", 23);
+  ASSERT_EQ(*trie.Get<uint32_t>("te"), 23);
+  trie = trie.Put<uint32_t>("tes", 233);
+  ASSERT_EQ(*trie.Get<uint32_t>("tes"), 233);
+  // Delete something
+  trie = trie.Remove("test");
+  trie = trie.Remove("tes");
+  trie = trie.Remove("te");
+
+  ASSERT_EQ(trie.Get<uint32_t>("te"), nullptr);
+  ASSERT_EQ(trie.Get<uint32_t>("tes"), nullptr);
+  ASSERT_EQ(trie.Get<uint32_t>("test"), nullptr);
+}
+```
+
+
+
+<figure><img src="../.gitbook/assets/basicremovetest1.png" alt=""><figcaption><p>BasicRemoveTest1</p></figcaption></figure>
+
+注意点：
+
+* 删除在新节点上操作，原trie不受影响
+* 删除中间节点时要保留后续值，将`TrieNodeWithValue`改为`TrieNode`
+
+设计一个递归函数`dfs(root,key,index)。`
+
+&#x20;
+
+<figure><img src="../.gitbook/assets/DFS.png" alt=""><figcaption><p>dfs(root,key,index)</p></figcaption></figure>
+
+各种删除node的情况：
+
+
+
+<figure><img src="../.gitbook/assets/remove1.png" alt=""><figcaption></figcaption></figure>
+
