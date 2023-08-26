@@ -129,3 +129,39 @@ TEST(TrieTest, BasicRemoveTest1) {
 
 <figure><img src="../.gitbook/assets/remove1.png" alt=""><figcaption></figcaption></figure>
 
+
+
+## Debug
+
+测试
+
+```sh
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+make -j`nproc`
+
+make trie_test  -j$(nproc)
+make trie_noncopy_test trie_store_noncopy_test -j$(nproc)
+
+# 格式化代码
+make format
+make check-lint
+make check-clang-tidy-p0
+```
+
+```cpp
+// ptr = ptr->children_[ch];
+// no match for ‘operator[]’
+ptr = ptr->children_.at(ch);
+
+
+// auto ptr = root_->Clone();
+// ptr = child;
+// no match for ‘operator=’ (operand types are ‘std::unique_ptr<bustub::TrieNode>’ and ‘std::shared_ptr<bustub::TrieNode>’)
+std::shared_ptr<const TrieNode> ptr = root_->Clone();
+
+// ptr = std::make_shared<const TrieNodeWithValue<T>>(ptr->children_,std::make_shared<T>(value));
+// no match for ‘operator=’ (operand types are ‘std::shared_ptr<bustub::TrieNode>’ and ‘std::shared_ptr<const bustub::TrieNodeWithValue<unsigned int> >’)
+ptr = std::make_shared<const TrieNodeWithValue<T>>(ptr->children_,std::make_shared<T>(std::move(value)));
+```
