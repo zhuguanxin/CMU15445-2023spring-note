@@ -150,6 +150,8 @@ make check-lint
 make check-clang-tidy-p0
 ```
 
+一些debug记录
+
 ```cpp
 // ptr = ptr->children_[ch];
 // no match for ‘operator[]’
