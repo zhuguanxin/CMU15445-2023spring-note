@@ -1,3 +1,7 @@
+---
+description: 写实复制字典树（单线程）
+---
+
 # task#1 Copy on Write Trie
 
 ## 字典树
