@@ -62,3 +62,11 @@ description: 并发键值存储（多线程写时复制字典树）
 * 逻辑类似`TrieStore::Get`
 
 其实只需要开一把大锁`TrieStore::write_lock_`，改动root时调用`TrieStore::root_lock_`即可。
+
+## Debug
+
+```C++
+cd build
+make trie_store_test -j$(nproc)
+./test/trie_store_test
+```
