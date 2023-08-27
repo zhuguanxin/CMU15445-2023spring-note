@@ -20,3 +20,45 @@ description: 并发键值存储（多线程写时复制字典树）
 
 为此，我们在 `trie_store.cpp` 中为您提供了 `TrieStore::Get` 的伪代码。 请仔细阅读并思考如何实现 `TrieStore::Put` 和 `TrieStore::Remove`。
 
+## 阅读原文件
+
+<figure><img src="../.gitbook/assets/trie_store.png" alt=""><figcaption><p><code>trie_store.h</code>类关系图</p></figcaption></figure>
+
+## Get(key)
+
+```cpp
+// Pseudo-code:
+// (1) Take the root lock, get the root, and release the root lock. Don't lookup the value in the
+//     trie while holding the root lock.
+// (2) Lookup the value in the trie.
+// (3) If the value is found, return a ValueGuard object that holds a reference to the value and the
+//     root. Otherwise, return std::nullopt.
+```
+
+伪代码：
+
+* 为root加锁，获取`TrieStore::root_`，释放锁。当root加锁时不能从trie中获取value。
+* 从Trie root中调用`Trie::Get`获得value。
+* 若找到value，返回一个`ValueGuard(root,value)`对象。该对象持有一个root的引用。否则，返回`std::nullopt`。
+
+## Put(key,value)
+
+```cpp
+// You will need to ensure there is only one writer at a time. Think of how you can achieve this.
+// The logic should be somehow similar to `TrieStore::Get`.
+```
+
+* 你需要确保同时只有一个writer。
+* 逻辑类似`TrieStore::Get`
+
+## Remove(key)
+
+```cpp
+// You will need to ensure there is only one writer at a time. Think of how you can achieve this.
+// The logic should be somehow similar to `TrieStore::Get`.
+```
+
+* 你需要确保同时只有一个writer。
+* 逻辑类似`TrieStore::Get`
+
+其实只需要开一把大锁`TrieStore::write_lock_`，改动root时调用`TrieStore::root_lock_`即可。
