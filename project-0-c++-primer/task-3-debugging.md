@@ -1,6 +1,6 @@
-# task#3#4 Debugging & SQL String Functions
+# task#3 Debugging
 
-## task#3 要求
+## 要求
 
 在本task中，你将学习调试的基本知识。你可以选择任何你喜欢的调试方式，包括但不限于：使用cout和printf，使用CLion/VScode，gdb等。
 
@@ -42,3 +42,6 @@ TEST(TrieDebugger, TestCase) {
 }
 ```
 
+## 步骤
+
+在指定处设置断点进行调试，得到三个参数填入`trie_answer.h`。

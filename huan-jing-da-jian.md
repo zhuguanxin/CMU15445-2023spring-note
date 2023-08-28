@@ -4,6 +4,7 @@
 * 课程GitHub：[https://github.com/cmu-db/bustub](https://github.com/cmu-db/bustub)
 * 参考书目：[数据库系统概念（第七版）](https://www.db-book.com/)
 * OS：Ubuntu 22.04.2(WSL2)
+* IDE：VScode
 
 ## 拉取代码
 
