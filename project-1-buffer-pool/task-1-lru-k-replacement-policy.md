@@ -10,4 +10,13 @@ LRU-K算法会淘汰在Replacer中的所有帧中后向k距离最大的帧。后
 * 少于k次访问 && 距离是+inf，优先被淘汰
 * 当有多个+inf时，优先淘汰整体时间戳最早的
 
-你需要实现在本课程中讨论的LRU-K策略。你需要按照
+你需要实现在本课程中讨论的LRU-K策略。你需要按照头文件（`src/include/buffer/lru_k_replacer.h`）和源文件（`src/buffer/lru_k_replacer.cpp`）中定义的方式实现以下方法：
+
+* `Evict(frame_id_t* frame_id)`：淘汰具有与Replacer追踪的所有其他可淘汰帧相比具有最大后向k距离的frame。将frame id存储在输出参数中并返回True。如果没有可淘汰的frame，则返回false。
+* `RecordAccess(frame_id_t frame_id)` ：记录给定的frame id在当前时间戳被访问。此方法应在页面在`BufferPoolManager`中固定之后调用。
+* `Remove(frame_id_t frame_id)`：移除与frame相关联的所有访问历史记录。此方法仅在`BufferPoolManager`中删除页面时调用。
+* `SetEvictable(frame_id_t frame_id, bool set_evictable)`：此方法控制frame是否可淘汰。它还控制`LRUKReplacer`的大小。当你实现`BufferPoolManager`时，将会知道何时调换此函数。具体而言，当页面的pin count达到0时，其对应的frame将会被标记为evictable，并增加Replacer的大小。
+* `Size()`：此方法返回当前在`LRUKReplacer`可淘汰的帧数。
+
+## LRU-K原理
+
