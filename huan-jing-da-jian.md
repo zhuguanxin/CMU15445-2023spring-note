@@ -49,3 +49,12 @@ make format
 make check-lint
 make check-clang-tidy-p0
 ```
+
+## 压缩包
+
+```sh
+#以project0为例
+make submit-p0
+```
+
+在文件中找到`project0-submission.zip`上传。

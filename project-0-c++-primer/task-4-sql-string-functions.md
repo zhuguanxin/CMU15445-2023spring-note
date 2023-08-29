@@ -27,3 +27,23 @@ make -j`nproc` sqllogictest
 ./bin/bustub-sqllogictest ../test/sql/p0.03-string-scan.slt --verbose
 ```
 
+## 步骤
+
+```cpp
+// plan_func_call.cpp
+auto Planner::GetFuncCallFromFactory(const std::string &func_name, std::vector<AbstractExpressionRef> args)
+    -> AbstractExpressionRef {
+  // 1. check if the parsed function name is "lower" or "upper".
+  // 2. verify the number of args (should be 1), refer to the test cases for when you should throw an `Excepetion`.
+  // 3. return a `StringExpression` std::shared_ptr.
+  throw Exception(fmt::format("func call {} not supported in planner yet", func_name));
+}
+```
+
+* 检查解析函数的名字是否"lower"或"upper"
+* 检查参数的数字（应该为1），当你抛出一个"Excepetion"时，指向test cases
+* 返回一个`` `StringExpression` std::shared_ptr ``
+
+首先在`string_expression.h`中实现`Compute(val)`函数。通过成员变量`StringExpressionType`判断`val`需要大写`toupper`还是小写`tolower`。
+
+然后在`plan_func_call.cpp`实现`GetFuncCallFromFactory(func_name,args)`函数。
