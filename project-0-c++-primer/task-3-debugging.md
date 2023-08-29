@@ -45,3 +45,38 @@ TEST(TrieDebugger, TestCase) {
 ## 步骤
 
 在指定处设置断点进行调试，得到三个参数填入`trie_answer.h`。
+
+使用VScode首先需要安装[gdb拓展](https://zhuanlan.zhihu.com/p/566365173)，然后需要在`CMakeLists.txt`修改生成文件，添加`src/primer/trie_debug_test.cpp`：
+
+```cmake
+set(P0_FILES
+        "src/include/primer/trie_answer.h"
+        "src/include/primer/trie_store.h"
+        "src/include/primer/trie.h"
+        "src/primer/trie_store.cpp"
+        "src/primer/trie.cpp"
+        "src/primer/trie_debug_test.cpp"
+        "src/planner/plan_func_call.cpp"
+        "src/include/execution/expressions/string_expression.h"
+)
+```
+
+然后生成`trie_debug_test.cpp：`
+
+```sh
+make trie_debug_test -j$(nproc)
+```
+
+调试，观察左边变量。
+
+
+
+<figure><img src="../.gitbook/assets/degubtest1.png" alt=""><figcaption><p>初始头文件生成变量</p></figcaption></figure>
+
+但是该变量提交后不对，需要[修改头文件](https://zhuanlan.zhihu.com/p/613920859)。
+
+修改后的变量：
+
+
+
+<figure><img src="../.gitbook/assets/debugtest2.png" alt=""><figcaption></figcaption></figure>
