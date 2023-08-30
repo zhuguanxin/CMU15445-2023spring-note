@@ -114,8 +114,7 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 }
 ```
 
-图示：
 
 
+<figure><img src="../.gitbook/assets/lru_k_replacer_test.svg" alt=""><figcaption><p>图示</p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/lru_k_replacer_test.svg" alt=""><figcaption></figcaption></figure>
