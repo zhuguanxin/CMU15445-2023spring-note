@@ -118,3 +118,11 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 
 <figure><img src="../.gitbook/assets/lru_k_replacer_test.svg" alt=""><figcaption><p>图示</p></figcaption></figure>
 
+阅读`lru_k_replacer.h`
+
+
+
+<figure><img src="../.gitbook/assets/lru_k_replacer.png" alt=""><figcaption><p><code>lru_k_replacer.h</code></p></figcaption></figure>
+
+## LRUReplacer(size\_t num\_frames,size\_t k)
+
