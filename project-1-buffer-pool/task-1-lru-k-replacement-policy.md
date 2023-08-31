@@ -126,3 +126,38 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 
 ## LRUReplacer(size\_t num\_frames,size\_t k)
 
+`num_frames`表示需要标记`frames`的数量，用于初始化类`LRUKReplacer`的数组`is_accessible_`，初始化大小为`num_frames+1`（编号从1开始）。
+
+`k`为`LRU-K`的`K`，初始化类`LRUKReplacer`的`k_`。
+
+## Evict(frame\_id\_t \*frame\_id)
+
+```cpp
+  /**
+   * TODO(P1): Add implementation
+   *
+   * @brief Find the frame with largest backward k-distance and evict that frame. Only frames
+   * that are marked as 'evictable' are candidates for eviction.
+   *
+   * A frame with less than k historical references is given +inf as its backward k-distance.
+   * If multiple frames have inf backward k-distance, then evict frame with earliest timestamp
+   * based on LRU.
+   *
+   * Successful eviction of a frame should decrement the size of replacer and remove the frame's
+   * access history.
+   *
+   * @param[out] frame_id id of frame that is evicted.
+   * @return true if a frame is evicted successfully, false if no frames can be evicted.
+   */
+  auto Evict(frame_id_t *frame_id) -> bool;
+```
+
+`@brief:`
+
+* 找到具有最大后向k距离的帧并淘汰该帧。
+* 只有被标记为evictable的帧能被淘汰。
+* 若一个帧少于k次历史访问，将被赋予+inf的后向k距离。若有多个帧具有inf的后向k距离，将会淘汰LRU中时间戳最早的帧。
+* 若成功淘汰一个帧，那么要减小Replacer的size并移除frame的
+
+`@param[out]:`
+
