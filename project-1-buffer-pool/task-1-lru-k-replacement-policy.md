@@ -161,3 +161,9 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 
 `@param[out]:`
 
+* 被淘汰的frame id
+
+`@return:`
+
+* 若成功淘汰一个帧，返回true。否则返回false。
+
