@@ -199,5 +199,5 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 * `frame_id`给定的frame\_id
 * `access_type`该参数仅在leaderboard test中需要使用。（只完成task要求不需要使用）
 
-<figure><img src="../.gitbook/assets/RecordAccess.png" alt=""><figcaption><p>RecordAccess</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/RecordAccess (1).png" alt=""><figcaption><p>RecordAccess</p></figcaption></figure>
 
