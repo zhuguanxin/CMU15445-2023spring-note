@@ -201,3 +201,33 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 
 <figure><img src="../.gitbook/assets/RecordAccess (1).png" alt=""><figcaption><p>RecordAccess</p></figcaption></figure>
 
+## SetEvictable(frame\_id\_t frame\_id,bool set\_evictable)
+
+```cpp
+  /**
+   * TODO(P1): Add implementation
+   *
+   * @brief Toggle whether a frame is evictable or non-evictable. This function also
+   * controls replacer's size. Note that size is equal to number of evictable entries.
+   *
+   * If a frame was previously evictable and is to be set to non-evictable, then size should
+   * decrement. If a frame was previously non-evictable and is to be set to evictable,
+   * then size should increment.
+   *
+   * If frame id is invalid, throw an exception or abort the process.
+   *
+   * For other scenarios, this function should terminate without modifying anything.
+   *
+   * @param frame_id id of frame whose 'evictable' status will be modified
+   * @param set_evictable whether the given frame is evictable or not
+   */
+  void SetEvictable(frame_id_t frame_id, bool set_evictable);
+```
+
+`@brief:`
+
+* 对一个帧进行evictable与non-evictable的切换。该函数也控制replacer\_size\_。replacer\_size\_等于evictable帧的数量。
+* 若一个帧此前evictable，转换为non-evictable，那么replacer\_size\_--。反之++。
+* 若帧无效，抛出异常。
+* 其他情况（没访问过帧），直接返回。
+
