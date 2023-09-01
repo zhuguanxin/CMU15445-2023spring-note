@@ -261,3 +261,18 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 * 注意该函数与evict不同，该函数remove指定的帧。
 * 若指定帧non-evictable，抛出异常。
 * 若指定帧没找到，直接返回。
+
+## Debug
+
+```sh
+$ make lru_k_replacer_test -j$(nproc)
+$ ./test/lru_k_replacer_test
+```
+
+## Format
+
+```sh
+$ make format
+$ make check-lint
+$ make check-clang-tidy-p1
+```
