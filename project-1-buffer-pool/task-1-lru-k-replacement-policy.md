@@ -157,7 +157,7 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 * 找到具有最大后向k距离的帧并淘汰该帧。
 * 只有被标记为evictable的帧能被淘汰。
 * 若一个帧少于k次历史访问，将被赋予+inf的后向k距离。若有多个帧具有inf的后向k距离，将会淘汰LRU中时间戳最早的帧。
-* 若成功淘汰一个帧，那么要减小Replacer的size并移除frame的
+* 若成功淘汰一个帧，那么要减小Replacer的size并返回移除frame id。要注意，由于移除frame id是\*it得到的，移除list后迭代器会失效。
 
 `@param[out]:`
 
