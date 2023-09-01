@@ -231,3 +231,33 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 * 若帧无效（大于replacer\_size\_），抛出异常。
 * 其他情况（没访问过帧），直接返回。
 
+## Remove(frame\_id\_t frame\_id)
+
+```cpp
+  /**
+   * TODO(P1): Add implementation
+   *
+   * @brief Remove an evictable frame from replacer, along with its access history.
+   * This function should also decrement replacer's size if removal is successful.
+   *
+   * Note that this is different from evicting a frame, which always remove the frame
+   * with largest backward k-distance. This function removes specified frame id,
+   * no matter what its backward k-distance is.
+   *
+   * If Remove is called on a non-evictable frame, throw an exception or abort the
+   * process.
+   *
+   * If specified frame is not found, directly return from this function.
+   *
+   * @param frame_id id of frame to be removed
+   */
+  void Remove(frame_id_t frame_id);
+```
+
+`@brief:`
+
+* 从replacer中按access history移除一个evictable帧。
+* 若成功remove，减小current\_size\_。
+* 注意该函数与evict不同，该函数remove指定的帧。
+* 若指定帧non-evictable，抛出异常。
+* 若指定帧没找到，直接返回。
