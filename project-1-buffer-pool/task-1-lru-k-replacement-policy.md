@@ -226,8 +226,8 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 
 `@brief:`
 
-* 对一个帧进行evictable与non-evictable的切换。该函数也控制replacer\_size\_。replacer\_size\_等于evictable帧的数量。
-* 若一个帧此前evictable，转换为non-evictable，那么replacer\_size\_--。反之++。
-* 若帧无效，抛出异常。
+* 对一个帧进行evictable与non-evictable的切换。该函数也控制current\_size\_。current\_size\_等于evictable帧的数量。
+* 若一个帧此前evictable，转换为non-evictable，那么current\_size\_--。反之++。
+* 若帧无效（大于replacer\_size\_），抛出异常。
 * 其他情况（没访问过帧），直接返回。
 
