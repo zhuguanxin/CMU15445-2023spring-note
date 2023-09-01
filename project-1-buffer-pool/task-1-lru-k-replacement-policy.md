@@ -167,3 +167,35 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 
 * 若成功淘汰一个帧，返回true。否则返回false。
 
+<figure><img src="../.gitbook/assets/evict.png" alt=""><figcaption><p>Evict</p></figcaption></figure>
+
+## RecordAccess(frame\_id\_t frame\_id)
+
+```cpp
+  /**
+   * TODO(P1): Add implementation
+   *
+   * @brief Record the event that the given frame id is accessed at current timestamp.
+   * Create a new entry for access history if frame id has not been seen before.
+   *
+   * If frame id is invalid (ie. larger than replacer_size_), throw an exception. You can
+   * also use BUSTUB_ASSERT to abort the process if frame id is invalid.
+   *
+   * @param frame_id id of frame that received a new access.
+   * @param access_type type of access that was received. This parameter is only needed for
+   * leaderboard tests.
+   */
+  void RecordAccess(frame_id_t frame_id, AccessType access_type = AccessType::Unknown);
+```
+
+`@brief:`
+
+* 记录在当前时间戳下给定的frame\_id的历史访问。
+* 若该frame id此前未访问过，创建一个新的访问历史。
+* 若该frame id无效（大于replacer\_size\_），抛出异常。你可以使用BUSTUB\_ASSERT终止进程若该帧无效。
+
+`@param:`
+
+* `frame_id`给定的frame\_id
+* `access_type`该参数仅在leaderboard test中需要使用。（只完成task要求不需要使用）
+
