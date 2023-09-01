@@ -257,7 +257,7 @@ TEST(LRUKReplacerTest, DISABLED_SampleTest) {
 `@brief:`
 
 * 从replacer中按access history移除一个evictable帧。
-* 若成功remove，减小current\_size\_。
+* 若成功remove，减小current\_size\_。同时use\_count\_清零。
 * 注意该函数与evict不同，该函数remove指定的帧。
 * 若指定帧non-evictable，抛出异常。
 * 若指定帧没找到，直接返回。
