@@ -85,3 +85,39 @@ TEST(BufferPoolManagerTest, DISABLED_SampleTest) {
 }
 ```
 
+## NewPage(page\_id\_t \*page\_id)
+
+```cpp
+/**
+ * TODO(P1): Add implementation
+ *
+ * @brief Create a new page in the buffer pool. Set page_id to the new page's id, or nullptr if all frames
+ * are currently in use and not evictable (in another word, pinned).
+ *
+ * You should pick the replacement frame from either the free list or the replacer (always find from the free list
+ * first), and then call the AllocatePage() method to get a new page id. If the replacement frame has a dirty page,
+ * you should write it back to the disk first. You also need to reset the memory and metadata for the new page.
+ *
+ * Remember to "Pin" the frame by calling replacer.SetEvictable(frame_id, false)
+ * so that the replacer wouldn't evict the frame before the buffer pool manager "Unpin"s it.
+ * Also, remember to record the access history of the frame in the replacer for the lru-k algorithm to work.
+ *
+ * @param[out] page_id id of created page
+ * @return nullptr if no new pages could be created, otherwise pointer to new page
+ */
+auto NewPage(page_id_t *page_id) -> Page *;
+```
+
+`@brief:`
+
+* 从buffer pool中创建一个新page。为新page设置page\_id，或者如果其他帧都pinned返回nullptr。
+* 你应该从free list或者replacer中选取replacement frame（优先free list），然后调用`AllocatePage()`获取一个新page\_id。若replacement frame有一个脏页，你应先将其写回disk。然后为新page重设memory和metadata。
+
+`@param[out]:`
+
+* `page_id`创建page的id
+
+`@return：`
+
+* 若无新页被创建，返回`nullptr`。否则返回指向新页的指针。
+
