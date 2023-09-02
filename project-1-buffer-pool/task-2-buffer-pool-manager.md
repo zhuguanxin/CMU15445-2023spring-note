@@ -27,6 +27,8 @@
 
 <figure><img src="../.gitbook/assets/BufferPoolManager.png" alt=""><figcaption><p><code>buffer_pool_manager.h</code></p></figcaption></figure>
 
+<figure><img src="../.gitbook/assets/DiskManager.png" alt=""><figcaption><p><code>DiskManager.h</code></p></figcaption></figure>
+
 ```cpp
 TEST(BufferPoolManagerTest, DISABLED_SampleTest) {
   const std::string db_name = "test.db";
