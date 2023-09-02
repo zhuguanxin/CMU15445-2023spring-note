@@ -25,6 +25,8 @@
 
 ## 阅读测试文件和头文件
 
+<figure><img src="../.gitbook/assets/BufferPoolManager.png" alt=""><figcaption><p><code>buffer_pool_manager.h</code></p></figcaption></figure>
+
 ```cpp
 TEST(BufferPoolManagerTest, DISABLED_SampleTest) {
   const std::string db_name = "test.db";
