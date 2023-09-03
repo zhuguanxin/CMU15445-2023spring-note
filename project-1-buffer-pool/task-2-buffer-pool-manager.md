@@ -27,7 +27,9 @@
 
 <figure><img src="../.gitbook/assets/BufferPoolManager.png" alt=""><figcaption><p><code>buffer_pool_manager.h</code></p></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/DiskManager.png" alt=""><figcaption><p><code>DiskManager.h</code></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/DiskManager.png" alt=""><figcaption><p><code>disk_manager.h</code></p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/Page.png" alt=""><figcaption><p><code>page.h</code></p></figcaption></figure>
 
 ```cpp
 TEST(BufferPoolManagerTest, DISABLED_SampleTest) {
@@ -122,4 +124,6 @@ auto NewPage(page_id_t *page_id) -> Page *;
 `@return：`
 
 * 若无新页被创建，返回`nullptr`。否则返回指向新页的指针。
+
+<figure><img src="broken-reference" alt=""><figcaption><p><code>NewPage</code></p></figcaption></figure>
 
