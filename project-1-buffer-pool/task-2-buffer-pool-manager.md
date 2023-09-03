@@ -89,7 +89,7 @@ TEST(BufferPoolManagerTest, DISABLED_SampleTest) {
 }
 ```
 
-## NewPage(page\_id\_t \*page\_id)
+## NewPage(page\_id\_t \*)
 
 ```cpp
 /**
@@ -125,5 +125,44 @@ auto NewPage(page_id_t *page_id) -> Page *;
 
 * 若无新页被创建，返回`nullptr`。否则返回指向新页的指针。
 
-<figure><img src="broken-reference" alt=""><figcaption><p><code>NewPage</code></p></figcaption></figure>
+<figure><img src="../.gitbook/assets/newpage.png" alt=""><figcaption><p><code>NewPage</code></p></figcaption></figure>
+
+## FetchPage(page\_id\_t,AccessType)
+
+```cpp
+/**
+* TODO(P1): Add implementation
+*
+* @brief Fetch the requested page from the buffer pool. Return nullptr if page_id needs to be fetched from the disk
+* but all frames are currently in use and not evictable (in another word, pinned).
+*
+* First search for page_id in the buffer pool. If not found, pick a replacement frame from either the free list or
+* the replacer (always find from the free list first), read the page from disk by calling disk_manager_->ReadPage(),
+* and replace the old page in the frame. Similar to NewPage(), if the old page is dirty, you need to write it back
+* to disk and update the metadata of the new page
+*
+* In addition, remember to disable eviction and record the access history of the frame like you did for NewPage().
+*
+* @param page_id id of page to be fetched
+* @param access_type type of access to the page, only needed for leaderboard tests.
+* @return nullptr if page_id cannot be fetched, otherwise pointer to the requested page
+*/
+auto FetchPage(page_id_t page_id, AccessType access_type = AccessType::Unknown) -> Page *;
+```
+
+`@brief:`
+
+* 从buffer pool中fetch指定page。若指定page\_id对应frame在replacer\_且pinned，返回nullptr。
+* 首先在buffer pool中搜索page\_id。若没找到，则从free\_list\_或者replacer\_中选取一个replacement frame（优先free\_list\_），调用disk\_manager\_->ReadPage()读取page，替换frame的旧page。与NewPage()类似，若旧page脏，你需要将它写回disk并更新new page的metadata。
+* 另外，记得设置non-evictable并记录frame的访问历史。
+
+`@param:`
+
+* `page_id`抓取的page的id
+
+`@return：`
+
+* 若page\_id无法被抓取，返回空。否则返回指向指定page的指针。
+
+<figure><img src="../.gitbook/assets/Fetchpage.svg" alt=""><figcaption><p><code>fetchpage</code></p></figcaption></figure>
 
