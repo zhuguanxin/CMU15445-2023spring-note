@@ -166,3 +166,106 @@ auto FetchPage(page_id_t page_id, AccessType access_type = AccessType::Unknown) 
 
 <figure><img src="../.gitbook/assets/Fetchpage.svg" alt=""><figcaption><p><code>fetchpage</code></p></figcaption></figure>
 
+## UnpinPage(page\_id\_t,bool,AccessType)
+
+```cpp
+/**
+* TODO(P1): Add implementation
+*
+* @brief Unpin the target page from the buffer pool. If page_id is not in the buffer pool or its pin count is already
+* 0, return false.
+*
+* Decrement the pin count of a page. If the pin count reaches 0, the frame should be evictable by the replacer.
+* Also, set the dirty flag on the page to indicate if the page was modified.
+*
+* @param page_id id of page to be unpinned
+* @param is_dirty true if the page should be marked as dirty, false otherwise
+* @param access_type type of access to the page, only needed for leaderboard tests.
+* @return false if the page is not in the page table or its pin count is <= 0 before this call, true otherwise
+*/
+auto UnpinPage(page_id_t page_id, bool is_dirty, AccessType access_type = AccessType::Unknown) -> bool;
+```
+
+`@brief:`
+
+* 从buffer pool中unpin指定page。若page\_id不在buffer pool或者pin count已经为0，返回false。
+* 减小page的pin count。若pin count为0，帧应该由replacer\_淘汰。同样，若page被修改，设置该page为脏。
+
+## FlushPage(page\_id\_t)
+
+```cpp
+/**
+* TODO(P1): Add implementation
+*
+* @brief Flush the target page to disk.
+*
+* Use the DiskManager::WritePage() method to flush a page to disk, REGARDLESS of the dirty flag.
+* Unset the dirty flag of the page after flushing.
+*
+* @param page_id id of page to be flushed, cannot be INVALID_PAGE_ID
+* @return false if the page could not be found in the page table, true otherwise
+*/
+auto FlushPage(page_id_t page_id) -> bool;
+```
+
+`@brief:`
+
+* 将目标page刷到disk。
+* 调用DiskManager::WritePage()函数将一个page刷到disk（无论dirty flag怎样）
+* 刷盘之后重设dirty flag。
+
+`@param:`
+
+* `page_id`要刷盘的page id，不能是INVALID\_PAGE\_ID。
+
+`@return：`
+
+* 若page table没找到page返回false，否则true。
+
+## FlushAllPages()
+
+```cpp
+/**
+* TODO(P1): Add implementation
+*
+* @brief Flush all the pages in the buffer pool to disk.
+*/
+void FlushAllPages();
+```
+
+`@brief:`
+
+* 将buffer pool中所有pages刷到disk。
+
+## DeletePage(page\_id\_t)
+
+```cpp
+/**
+* TODO(P1): Add implementation
+*
+* @brief Delete a page from the buffer pool. If page_id is not in the buffer pool, do nothing and return true. If the
+* page is pinned and cannot be deleted, return false immediately.
+*
+* After deleting the page from the page table, stop tracking the frame in the replacer and add the frame
+* back to the free list. Also, reset the page's memory and metadata. Finally, you should call DeallocatePage() to
+* imitate freeing the page on the disk.
+*
+* @param page_id id of page to be deleted
+* @return false if the page exists but could not be deleted, true if the page didn't exist or deletion succeeded
+*/
+auto DeletePage(page_id_t page_id) -> bool;
+```
+
+`@brief:`
+
+* 从buffer pool中删除一个page。若page id不在buffer pool，返回true。若page被pinned且无法delete，返回false。
+* 在page table删完page后，停止在replacer记录对应frame且将frame记录在free list的back。同样，重设page的内存和metadata。最后，你应该调用DeallocatePage()来快速从disk中释放page。
+
+`@param:`
+
+* `page_id`要delete的page id。
+
+`@return：`
+
+* 若page存在且不能被delete，返回false。若page不存在或delete成功返回true。
+
