@@ -213,3 +213,12 @@ auto DeletePage(page_id_t page_id) -> bool;
 
 * 若page存在且不能被delete，返回false。若page不存在或delete成功返回true。
 
+## Test & Format
+
+```
+$ make buffer_pool_manager_test
+$ ./test/buffer_pool_manager_test
+$ make format
+$ make check-lint
+$ make check-clang-tidy-p1
+```
