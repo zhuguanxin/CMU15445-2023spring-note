@@ -175,3 +175,13 @@ void Drop();
 ## WritePageGuard类
 
 与Read一样。
+
+## Test & Format
+
+```sh
+$ make page_guard_test
+$ ./test/page_guard_test
+$ make format
+$ make check-lint
+$ make check-clang-tidy-p1
+```
