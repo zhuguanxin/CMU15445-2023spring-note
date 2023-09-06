@@ -58,7 +58,7 @@ BasicPageGuard(BasicPageGuard &&that) noexcept;
 
 若this非空，先对其Drop()。将that的page\_，bmp\_,is\_dirty\_移到this，再将that置空。
 
-## Drop()
+### Drop()
 
 ```cpp
 /** TODO(P1): Add implementation
@@ -80,7 +80,7 @@ void Drop();
 
 先调用bpm\_->Unpin(..)释放pin\_count\_，再将is\_dirty\_,bpm\_,page\_置空。
 
-## operator=(BasicPageGuard&&)
+### operator=(BasicPageGuard&&)
 
 ```cpp
 /** TODO(P1): Add implementation
@@ -104,3 +104,74 @@ auto operator=(BasicPageGuard &&that) noexcept -> BasicPageGuard &;
 
 只有在this和\&that不同时才操作，返回\*this。
 
+## ReadPageGuard类
+
+<figure><img src="../.gitbook/assets/ReadPageGuard.svg" alt=""><figcaption><p><code>ReadPageGuard</code></p></figcaption></figure>
+
+### ReadPageGuard(ReadPageGuard&&)
+
+```cpp
+/** TODO(P1): Add implementation
+*
+* @brief Move constructor for ReadPageGuard
+*
+* Very similar to BasicPageGuard. You want to create
+* a ReadPageGuard using another ReadPageGuard. Think
+* about if there's any way you can make this easier for yourself...
+*/
+ReadPageGuard(ReadPageGuard &&that) noexcept;
+```
+
+`@brief:`
+
+* ReadPageGuard的移动构造函数。
+* 与BasicPageGuard非常类似。你需要使用另一个ReadPageGuard创建一个ReadPageGuard。考虑有没有更好的方式。
+
+先Drop()。然后调用`BasicPageGuard(std::move(that.guard_))`构造函数来初始化guard\_。
+
+### auto operator=(ReadPageGuard &&)
+
+```cpp
+/** TODO(P1): Add implementation
+*
+* @brief Move assignment for ReadPageGuard
+*
+* Very similar to BasicPageGuard. Given another ReadPageGuard,
+* replace the contents of this one with that one.
+*/
+auto operator=(ReadPageGuard &&that) noexcept -> ReadPageGuard &;
+```
+
+`@brief:`
+
+* ReadPageGuard的移动赋值函数。
+* 与BasicPageGuard非常类似。给定另一个ReadPageGuard，用另一个content替换当前的。
+
+先Drop()。使用this->guard=std::move(that.guard)替换当前guard，返回\*this。
+
+### void Drop()
+
+```cpp
+/** TODO(P1): Add implementation
+*
+* @brief Drop a ReadPageGuard
+*
+* ReadPageGuard's Drop should behave similarly to BasicPageGuard,
+* except that ReadPageGuard has an additional resource - the latch!
+* However, you should think VERY carefully about in which order you
+* want to release these resources.
+*/
+void Drop();
+```
+
+`@brief:`
+
+* ReadPageGuard的Drop应该与BasicPageGuard一样，除了ReadPageGuard有一个另外的因素，latch。然而，你应该考虑你该在哪一步解锁。
+
+先对`guard_.page->RUnlatch()`做解锁操作，再对`guard.Drop()`。
+
+考虑BufferPoolManager中的加锁。
+
+## WritePageGuard类
+
+与Read一样。
