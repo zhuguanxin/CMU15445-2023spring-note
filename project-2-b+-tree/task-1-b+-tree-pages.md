@@ -38,3 +38,14 @@ Internal page存储了m个有序的键和m+1个指向其他B+树的孩子指针�
 注意：尽管叶子页和内部页包含相同类型的键，但它们的值类型可能不同。因此，它们的最大大小（max\_size）可以不同。
 
 每个B+树的叶子页和内部页对应于由缓冲池获取的内存页的内容（data\_）。每当你读取或写入一个叶子页或内部页时，你必须首先冲缓冲池获取该页（使用page\_id），然后将其重新解释为叶子页或内部页，并在读取或写入完成后取消固定该页。
+
+## B+ Tree Page
+
+### 阅读头文件
+
+<figure><img src="../.gitbook/assets/B+treepage.svg" alt=""><figcaption><p>b_plus_tree_page.h</p></figcaption></figure>
+
+按照说明完成源文件里的函数即可。特别地，`BPlusTreePage::GetMinSize()`函数返回`min_size`，若是`internal page`，返回`(max_size_+1)/2`；若是`leaf page`，返回`max_size_/2`。
+
+### B+ Tree Internal Page
+
