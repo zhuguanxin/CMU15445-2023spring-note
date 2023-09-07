@@ -41,11 +41,13 @@ Internal page存储了m个有序的键和m+1个指向其他B+树的孩子指针�
 
 ## B+ Tree Page
 
-### 阅读头文件
-
 <figure><img src="../.gitbook/assets/B+treepage.svg" alt=""><figcaption><p>b_plus_tree_page.h</p></figcaption></figure>
 
 按照说明完成源文件里的函数即可。特别地，`BPlusTreePage::GetMinSize()`函数返回`min_size`，若是`internal page`，返回`(max_size_+1)/2`；若是`leaf page`，返回`max_size_/2`。
 
-### B+ Tree Internal Page
+## B+ Tree Internal Page
+
+<figure><img src="../.gitbook/assets/B+interanal.svg" alt=""><figcaption><p><code>b_plus_tree_internal_page.h</code></p></figcaption></figure>
+
+## B+ Tree Leaf Page
 
