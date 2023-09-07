@@ -51,3 +51,6 @@ Internal page存储了m个有序的键和m+1个指向其他B+树的孩子指针�
 
 ## B+ Tree Leaf Page
 
+<figure><img src="../.gitbook/assets/RID.svg" alt=""><figcaption><p><code>rid.h</code></p></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/b+leaf.svg" alt=""><figcaption><p><code>b_plus_tree_leaf_page.h</code></p></figcaption></figure>
