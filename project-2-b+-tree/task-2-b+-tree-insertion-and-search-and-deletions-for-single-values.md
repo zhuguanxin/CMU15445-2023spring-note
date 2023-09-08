@@ -35,3 +35,9 @@ template<typename KeyType,
 
 注意：我们的B+树函数还接受一个默认值为nullptr的Transaction\*参数。这是为了project#4准备的，如果你想在并发控制中实现并发索引查找，可以使用该函数。在本项目中，通常不需要使用该参数。
 
+## 前置知识
+
+* [参考笔记（柔性数组&索引\&API流程）](https://zhuanlan.zhihu.com/p/580014163)
+* [B+树（查找&插入&删除）](https://zhuanlan.zhihu.com/p/149287061)
+* 进阶阅读：[MySQL索引背后的数据结构及算法原理](https://link.zhihu.com/?target=http%3A//blog.codinglabs.org/articles/theory-of-mysql-index.html)&#x20;
+
