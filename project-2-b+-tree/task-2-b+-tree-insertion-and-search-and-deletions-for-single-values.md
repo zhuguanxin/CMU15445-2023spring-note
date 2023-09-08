@@ -1,6 +1,6 @@
-# task#2a B+ Tree Insertion and Search for Single Values
+# task#2 B+ Tree Insertion & Search & Deletions for Single Values
 
-## 要求
+## task#2a要求
 
 对于checkpoint#1，你的B+树索引必须支持单个值的插入(Insert())和搜索(GetValue())。该索引应只支持唯一键；如果尝试重新插入已存在的键到索引中，它不应执行插入操作，并返回false（重复key返回false）。
 

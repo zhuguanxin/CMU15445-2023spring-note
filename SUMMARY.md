@@ -19,4 +19,4 @@
 ## project#2 B+ Tree
 
 * [task#1 B+ Tree Pages](project-2-b+-tree/task-1-b+-tree-pages.md)
-* [task#2a B+ Tree Insertion and Search for Single Values](project-2-b+-tree/task-2a-b+-tree-insertion-and-search-for-single-values.md)
+* [task#2 B+ Tree Insertion & Search & Deletions for Single Values](project-2-b+-tree/task-2-b+-tree-insertion-and-search-and-deletions-for-single-values.md)
