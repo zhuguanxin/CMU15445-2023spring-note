@@ -41,3 +41,34 @@ template<typename KeyType,
 * [B+树（查找&插入&删除）](https://zhuanlan.zhihu.com/p/149287061)
 * 进阶阅读：[MySQL索引背后的数据结构及算法原理](https://link.zhihu.com/?target=http%3A//blog.codinglabs.org/articles/theory-of-mysql-index.html)&#x20;
 
+## 搜索Search
+
+阅读`src/include/storage/index/b_plus_tree.h`。
+
+```cpp
+/**
+* b_plus_tree.h
+*
+* Implementation of simple b+ tree data structure where internal pages direct
+* the search and leaf pages contain actual data.
+* (1) We only support unique key
+* (2) support insert & remove
+* (3) The structure should shrink and grow dynamically
+* (4) Implement index iterator for range scan
+*/
+```
+
+实现一个简单的B+树，它的internal page处理搜索，它的leaf page包含实际数据。
+
+* 我们仅支持unique key
+* 支持insert\&remove
+* B+树应该动态收缩和增长
+* 实现可范围搜索的index iterator
+
+<figure><img src="../.gitbook/assets/b_plus_tree.svg" alt=""><figcaption><p><code>b_plus_tree.h</code></p></figcaption></figure>
+
+* `Context`类用到了C++17的新特性`std::optional`，该成员变量需要调用`optional`的`reset`方法析构（或者重置为`std::nullopt`）。
+* `Context`类补充一个析构函数，用于释放四个成员变量（`Context`注释中要求）。`deque`成员需要`clear`析构。
+
+### auto IsEmpty()->bool
+
