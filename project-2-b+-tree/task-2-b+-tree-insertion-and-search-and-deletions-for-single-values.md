@@ -72,3 +72,12 @@ template<typename KeyType,
 
 ### auto IsEmpty()->bool
 
+先获取root page的只读guard。再调用guard\_.As()，实际上是reinterpret\_cast强转为BPlusTreeHeaderPage。最后判断root\_page\_id\_是否无效。
+
+```cpp
+ReadPageGuard header_page_guard = bpm_->FetchPageRead(header_page_id_);
+auto *header_page = header_page_guard.As<BPlusTreeHeaderPage>();
+```
+
+### GetValue
+
