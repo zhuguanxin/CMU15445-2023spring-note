@@ -69,6 +69,7 @@ template<typename KeyType,
 
 * `Context`类用到了C++17的新特性`std::optional`，该成员变量需要调用`optional`的`reset`方法析构（或者重置为`std::nullopt`）。
 * `Context`类补充一个析构函数，用于释放四个成员变量（`Context`注释中要求）。`deque`成员需要`clear`析构。
+* `Context`类用于保存Search过程中访问过的page及其相关信息。
 
 ### auto IsEmpty()->bool
 
@@ -80,4 +81,31 @@ auto *header_page = header_page_guard.As<BPlusTreeHeaderPage>();
 ```
 
 ### GetValue
+
+```cpp
+/*****************************************************************************
+* SEARCH
+*****************************************************************************/
+/*
+* Return the only value that associated with input key
+* This method is used for point query
+* @return : true means key exists
+*/
+INDEX_TEMPLATE_ARGUMENTS
+auto BPLUSTREE_TYPE::GetValue(const KeyType &key, std::vector<ValueType> *result, Transaction *txn) -> bool {
+  // Declaration of context instance.
+  Context ctx;
+  (void)ctx;
+  return false;
+  
+}
+```
+
+Search:
+
+* 返回与input key关联的value
+* 该方法用于point query
+* `@return`:当key存在返回true
+
+<figure><img src="../.gitbook/assets/getvalue.svg" alt=""><figcaption><p><code>GetValue</code></p></figcaption></figure>
 
