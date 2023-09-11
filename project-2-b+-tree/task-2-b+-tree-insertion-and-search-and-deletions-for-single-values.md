@@ -109,3 +109,138 @@ Search:
 
 <figure><img src="../.gitbook/assets/getvalue.svg" alt=""><figcaption><p><code>GetValue</code></p></figcaption></figure>
 
+GetValue有三个入参(\&key,\*result,\*txn)，并给定了一个上下文`Context`:
+
+```cpp
+Context ctx;
+(void)ctx;
+```
+
+观察`BPlusTree`的成员函数：
+
+```cpp
+// member variable
+std::string index_name_;
+BufferPoolManager *bpm_;
+KeyComparator comparator_;
+std::vector<std::string> log;  // NOLINT
+int leaf_max_size_;
+int internal_max_size_;
+page_id_t header_page_id_;
+```
+
+`Context ctx`的成员变量：
+
+```cpp
+// When you insert into / remove from the B+ tree, store the write guard of header page here.
+// Remember to drop the header page guard and set it to nullopt when you want to unlock all.
+std::optional<WritePageGuard> header_page_{std::nullopt};
+
+// Save the root page id here so that it's easier to know if the current page is the root page.
+page_id_t root_page_id_{INVALID_PAGE_ID};
+
+// Store the write guards of the pages that you're modifying here.
+std::deque<WritePageGuard> write_set_;
+
+// You may want to use this when getting value, but not necessary.
+std::deque<ReadPageGuard> read_set_;
+
+auto IsRootPage(page_id_t page_id) -> bool { return page_id == root_page_id_; }
+```
+
+`GetValue`的大致思路：
+
+利用`BPlusTree`成员变量`header_page_id_`从`bpm_`中`FetchPageRead`获取对应的page guard，然后利用`guard_.As()`强转为`BPlusTreeHeaderPage`。因为可以利用`BPlusTreeHeaderPage`的成员变量`root_page_id_`：
+
+```cpp
+class BPlusTreeHeaderPage {
+ public:
+  // Delete all constructor / destructor to ensure memory safety
+  BPlusTreeHeaderPage() = delete;
+  BPlusTreeHeaderPage(const BPlusTreeHeaderPage &other) = delete;
+
+  page_id_t root_page_id_;
+};
+```
+
+这也是官网要求中的提示：
+
+You can do this by accessing the `header_page_id_` page, which is given to you in the constructor. Then, by using [reinterpret cast ](http://en.cppreference.com/w/cpp/language/reinterpret\_cast), you can interpret this page as a `BPlusTreeHeaderPage` (from src/include/storage/page/b\_plus\_tree\_header\_page.h) and update the root page ID from there.&#x20;
+
+获取到`root_page_id_`后，从`bpm_`中`FetchPageRead`获取对应的page guard，再强转为`InternalPage`。事实上每次获取page\*的步骤如下：
+
+*   先得到page id：一开始在`BPlusTreeHeaderPage`中获取成员变量`root_page_id_`。后续循环找leaf page时，先用自定义函数`Lookup`（自定义hepler method，二分查找找>=key的索引），再通过调用internal page函数`GetValue`获取page id。
+
+    ```cpp
+    int i = root_page->Lookup(key,comparator);
+    // 找到的key在页面中
+    if(i != root_page->GetSize() && comparator(key,root_page->KeyAt(i)) == 0){
+      root_page_id = root_page->GetValue(i);
+    }else{
+      // i == root_page->GetSize()
+      // 找到的key大于页面array中所有的key，因此返回最后一个page_id
+      root_page_id = root_page->GetValue(i-1);
+    }
+    ```
+*   获取page guard：从`BufferPoolManager`中按指定page id获取page guard：
+
+    ```cpp
+    root_page_guard = bpm_->FetchPageRead(root_page_id);
+    ```
+*   page guard强转为对应page\*：
+
+
+
+    ```cpp
+    // page guard是leaf page
+    auto *leaf_page = leaf_page_gurad.As<LeafPage>();
+    // page guard是internal page
+    root_page = root_page_guard.As<BPlusTree::InternalPage>();
+    ```
+*   每次访问一个page guard，都将其放入`ctx.read_set_.back()`，每次访问完毕，都队头出列，最后read\_set\_.back()留下目标leaf page（找leaf page的过程用while循环维护，实现一个自定义helper函数GetKeyAt）
+
+    ```cpp
+    ctx.read_set_.push_back(std::move(root_page_guard));
+    ctx.read_set_.pop_front();
+
+    auto leaf_page_gurad = std::move(ctx.read_set_.back());
+    ctx.read_set_.pop_back();
+    ```
+
+最后在leaf page中再次使用自定义函数`Lookup`（自定义hepler method，二分查找找>=key的索引），把所有符合条件的value入result：
+
+```cpp
+int i = leaf_page->Lookup(key,comparator_);
+bool is_success = false;
+// 符合条件的value尽数入resut
+if (i >= 0 && i < leaf_page->GetSize() && comparator_(leaf_page->KeyAt(i), key) == 0) {
+  BUSTUB_ASSERT(result != nullptr, "result not nullptr");
+  result->push_back(leaf_page->ValueAt(i));
+  is_success = true;
+}
+```
+
+其中ValueAt函数返回索引对应的value（leaf page和internal page），需要自定义。
+
+### Lookup
+
+以leaf page为例，用二分查找在当前page中寻找第一个>=key的元素索引，找不到返回`GetSize()`。
+
+```cpp
+INDEX_TEMPLATE_ARGUMENTS
+auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator &comparator) const -> int {
+  int left = 0;
+  int right = GetSize()-1;
+  int ans = GetSize();
+  while(left <= right){
+    int mid = (left + right) >> 1;
+    if(comparator(array_[mid].first,key) >= 0){
+      right = mid-1;
+      ans = mid;
+    }else{
+      left = mid + 1;
+    }
+  }
+  return ans;
+}
+```
