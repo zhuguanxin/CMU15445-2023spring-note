@@ -244,3 +244,6 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator 
   return ans;
 }
 ```
+
+## 插入Insertion
+
