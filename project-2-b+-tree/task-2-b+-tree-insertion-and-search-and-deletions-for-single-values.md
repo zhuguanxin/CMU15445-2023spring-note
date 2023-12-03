@@ -257,3 +257,6 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator 
 
 <figure><img src="../.gitbook/assets/InsertIntoParent (1).svg" alt=""><figcaption><p>InsertIntoParent</p></figcaption></figure>
 
+## 删除Delete
+
+使用查找方法，去找到需要删除的叶子节点。如果有多个相同key-value，则需要找到所有的目标
