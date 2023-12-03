@@ -252,3 +252,8 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator 
 <figure><img src="../.gitbook/assets/insertgetkeyat.svg" alt=""><figcaption><p><code>InsertGetKeyAt</code></p></figcaption></figure>
 
 自定义hepler函数，类似Search中的`GetKeyAt`。
+
+### InsertIntoParent
+
+<figure><img src="../.gitbook/assets/InsertIntoParent (1).svg" alt=""><figcaption><p>InsertIntoParent</p></figcaption></figure>
+
