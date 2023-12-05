@@ -257,7 +257,7 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator 
 
 <figure><img src="../.gitbook/assets/InsertIntoParent (1).svg" alt=""><figcaption><p>InsertIntoParent</p></figcaption></figure>
 
-## 删除Delete
+## 删除Remove
 
 使用查找方法，去找到需要删除的叶子节点。如果有多个相同key-value，则需要找到所有的目标直到我们找到需要删除的位置entry为止。接着把该entry从叶子节点中删除。接着把删除位置右边的entry向左平移一个位置。（普通删除，该节点的kv数不过少，删除不需要额外操作）
 
