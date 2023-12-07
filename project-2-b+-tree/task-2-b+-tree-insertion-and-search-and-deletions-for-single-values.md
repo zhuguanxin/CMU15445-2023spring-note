@@ -272,3 +272,8 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator 
 3. 非叶子，父节点降下来再放，更新父节点
 
 <figure><img src="../.gitbook/assets/Remove.svg" alt=""><figcaption><p>Remove</p></figcaption></figure>
+
+### DeleteGetKeyValue
+
+<figure><img src="../.gitbook/assets/DeleteGetKeyValue.svg" alt=""><figcaption><p>DeleteGetKeyValue</p></figcaption></figure>
+
