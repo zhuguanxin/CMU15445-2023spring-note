@@ -277,3 +277,6 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator 
 
 <figure><img src="../.gitbook/assets/DeleteGetKeyValue.svg" alt=""><figcaption><p>DeleteGetKeyValue</p></figcaption></figure>
 
+### RemoveEntry
+
+<figure><img src="../.gitbook/assets/RemoveEntry.svg" alt=""><figcaption><p>RemoveEntry</p></figcaption></figure>
