@@ -271,6 +271,8 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator 
 2. 如果是叶子直接放，更新父节点
 3. 非叶子，父节点降下来再放，更新父节点
 
+<figure><img src="../.gitbook/assets/remove伪代码.svg" alt=""><figcaption><p>伪代码</p></figcaption></figure>
+
 <figure><img src="../.gitbook/assets/Remove.svg" alt=""><figcaption><p>Remove</p></figcaption></figure>
 
 ### DeleteGetKeyValue
@@ -280,3 +282,4 @@ auto B_PLUS_TREE_LEAF_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator 
 ### RemoveEntry
 
 <figure><img src="../.gitbook/assets/RemoveEntry.svg" alt=""><figcaption><p>RemoveEntry</p></figcaption></figure>
+
