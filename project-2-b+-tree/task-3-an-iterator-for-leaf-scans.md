@@ -24,3 +24,7 @@ description: 索引迭代器
 * `src/index/storage/index_iterator.cpp`相应的源文件
 * `src/index/storage/b_plus_tree.cpp`
 
+## `index_iterator.h`
+
+<figure><img src="../.gitbook/assets/index_iterator.svg" alt=""><figcaption><p><code>index_iterator.h</code></p></figcaption></figure>
+
