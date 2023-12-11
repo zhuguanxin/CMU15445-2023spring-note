@@ -28,3 +28,17 @@ description: 索引迭代器
 
 <figure><img src="../.gitbook/assets/index_iterator.svg" alt=""><figcaption><p><code>index_iterator.h</code></p></figcaption></figure>
 
+## 思路与注意事项
+
+* `operator++()`指定迭代器的起点，通过自增移动当前的下标，依次获取对应的结果。每次返回都是一个KV键值对`INDEXITERATOR_TYPE`。如果移动到新页面，`index_`从0开始。
+* 操作对象
+  1. `leaf_page__`叶子页面
+  2. `index_`当前下标。指page\_页内的偏移而不是全局下标。
+  3. `bpm_`缓冲池。叶子页面有一个指向右兄弟的指针PageId类型，需要缓冲池进行获取。
+  4. `ReadPageGuard`缓冲池的只读页面守卫
+* index\_为-1时是终止位置，此时page和bpm\_为空。
+* 跨页面遍历时，需要通过缓冲池获取新页面。
+* Begin有两种实现：
+  1. 无参函数：从最左边开始遍历
+  2. 有参函数：从给定key所在位置开始遍历
+
