@@ -21,3 +21,4 @@
 * [task#1 B+ Tree Pages](project-2-b+-tree/task-1-b+-tree-pages.md)
 * [task#2 B+ Tree Insertion & Search & Deletions for Single Values](project-2-b+-tree/task-2-b+-tree-insertion-and-search-and-deletions-for-single-values.md)
 * [task#3 An Iterator for leaf scans](project-2-b+-tree/task-3-an-iterator-for-leaf-scans.md)
+* [task#4 Concurrent index](project-2-b+-tree/task-4-concurrent-index.md)
