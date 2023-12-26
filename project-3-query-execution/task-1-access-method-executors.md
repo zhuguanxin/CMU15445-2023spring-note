@@ -42,10 +42,13 @@ SeqScanExecutor迭代遍历表格并逐个返回其元组。
 * 顺序扫描的输出是每个匹配元组及其原始记录标识符RID的副本。
 * BusTub不支持DROP TABLE或者DROP INDEX。你可以通过重新启动shell来重置shell。
 
-
-
 ### 目标文件
 
 * `bustub/src/include/execution/executors/seq_scan_executor.h`
 * `bustub/src/execution/seq_scan_executor.h`
 
+### 思路
+
+* 目标：遍历一张表，并将表里的数据依次返回给调用者
+* 构造函数入参：上下文信息exec\_ctx，要执行的节点plan
+*
