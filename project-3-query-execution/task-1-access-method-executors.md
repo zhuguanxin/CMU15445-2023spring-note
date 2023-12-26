@@ -21,6 +21,8 @@ description: 访问方法执行程序
 
 下面将介绍这些执行程序中的每一个。
 
+<figure><img src="../.gitbook/assets/seqscan (1).svg" alt=""><figcaption><p>类图</p></figcaption></figure>
+
 ## SeqScan 顺序扫描
 
 [`SeqScanPlanNode`](https://github.com/cmu-db/bustub/blob/master/src/include/execution/plans/seq\_scan\_plan.h)可以使用`SELECT * FROM table`语句进行计划。
