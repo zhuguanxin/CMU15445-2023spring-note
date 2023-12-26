@@ -55,7 +55,7 @@ SeqScanExecutor迭代遍历表格并逐个返回其元组。
   1. 获取table\_oid\_t tid 将要被扫描的表id
   2. 获取TableInfo \*table\_info\_ 获取表的meta<-获取表的catalog<-上下文信息
   3. MakeIterator()设置迭代器
-* Next 根绝给定的tuple和rid遍历表
+* Next 根据给定的tuple和rid遍历表
   1. 找到要操作的表和迭代器
   2. 移动迭代器获取相应的tuple\&rid
   3. 跳过已被删除的tuple
