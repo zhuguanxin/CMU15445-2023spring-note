@@ -29,7 +29,7 @@ description: 访问方法执行程序
 
 [`SeqScanPlanNode`](https://github.com/cmu-db/bustub/blob/master/src/include/execution/plans/seq\_scan\_plan.h)可以使用`SELECT * FROM table`语句进行计划。
 
-```sh
+```sql
 bustub> CREATE TABLE t1(v1 INT, v2 VARCHAR(100));
 Table created with id = 15
 bustub> EXPLAIN (o,s) SELECT * FROM t1;
@@ -63,3 +63,30 @@ SeqScanExecutor迭代遍历表格并逐个返回其元组。
   1. 找到要操作的表和迭代器
   2. 移动迭代器获取相应的tuple\&rid
   3. 跳过已被删除的tuple
+
+## Insert 插入
+
+`InsertPlanNode`可以使用`INSERT`语句进行计划。请注意，你需要使用单引号来指定`VARCHAR`值。
+
+```sql
+bustub> EXPLAIN (o,s) INSERT INTO t1 VALUES (1, 'a'), (2, 'b');
+=== OPTIMIZER ===
+Insert { table_oid=15 } | (__bustub_internal.insert_rows:INTEGER)
+  Values { rows=2 } | (__values#0.0:INTEGER, __values#0.1:VARCHAR)
+```
+
+将InsertExecutor元组插入到表中并更新任何受影响的索引。它正好有一个子级生成要插入到表中的值。规划器将确保值与表具有相同的架构。执行器将生成一个整数类型的元组作为输出，指示已插入表的行数。如果存在与之关联的索引，请记住在插入表时更新索引。
+
+* 插入table
+* 更新被影响的索引
+* 有一个产生值的孩子
+* 计划器保证所有的值有相同的schema
+* 执行器会产生一个整数类型的tuple作为输出，用于表示往表中插入了多少行数据
+* 记住插入数据后要更新索引
+
+提示：
+
+* 参照系统表System Catalog部分，初始化时，你需要查找表相关的信息。
+* 查看索引更新Index Updates部分，光宇更新表的索引。
+* 你需要使用堆表TableHeap类去执行表的修改。
+* 当你创建或者修改TupleMeta元组数据时，你只需要修改`is_delete_`字段。对于`insertion_txn_`和`deletion_txn_`字段，只需要设置为`INVALID_TXN_ID`。
