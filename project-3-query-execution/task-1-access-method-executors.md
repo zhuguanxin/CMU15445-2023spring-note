@@ -96,3 +96,9 @@ Insert { table_oid=15 } | (__bustub_internal.insert_rows:INTEGER)
 * `bustub/src/include/execution/executors/insert_executor.h`
 * `bustub/src/execution/insert_executor.h`
 
+### 思路
+
+* 先从子节点获取插入的数值
+* 依次插入到对应的表中
+* 记录成功的条数，返回给调用者
+
