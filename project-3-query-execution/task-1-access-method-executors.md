@@ -90,3 +90,9 @@ Insert { table_oid=15 } | (__bustub_internal.insert_rows:INTEGER)
 * 查看索引更新Index Updates部分，光宇更新表的索引。
 * 你需要使用堆表TableHeap类去执行表的修改。
 * 当你创建或者修改TupleMeta元组数据时，你只需要修改`is_delete_`字段。对于`insertion_txn_`和`deletion_txn_`字段，只需要设置为`INVALID_TXN_ID`。
+
+### 目标文件
+
+* `bustub/src/include/execution/executors/insert_executor.h`
+* `bustub/src/execution/insert_executor.h`
+
