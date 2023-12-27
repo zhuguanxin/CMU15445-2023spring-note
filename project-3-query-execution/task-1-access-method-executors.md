@@ -23,6 +23,8 @@ description: 访问方法执行程序
 
 <figure><img src="../.gitbook/assets/seqscan (1).svg" alt=""><figcaption><p>类图</p></figcaption></figure>
 
+示例可以在[官方shell](https://15445.courses.cs.cmu.edu/spring2023/bustub/)中尝试。
+
 ## SeqScan 顺序扫描
 
 [`SeqScanPlanNode`](https://github.com/cmu-db/bustub/blob/master/src/include/execution/plans/seq\_scan\_plan.h)可以使用`SELECT * FROM table`语句进行计划。
