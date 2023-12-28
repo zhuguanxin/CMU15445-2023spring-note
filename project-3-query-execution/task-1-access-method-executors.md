@@ -104,7 +104,7 @@ Insert { table_oid=15 } | (__bustub_internal.insert_rows:INTEGER)
 
 ## Update 更新
 
-UpdatePlanNode可以用UPDATE句段来计划。它只有一个子节点，其中包含要在表中更新的记录。
+`UpdatePlanNode`可以用`UPDATE`句段来计划。它只有一个子节点，其中包含要在表中更新的记录。
 
 ```sql
 bustub> explain (o,s) update test_1 set colB = 15445;
@@ -113,9 +113,27 @@ Update { table_oid=20, target_exprs=[#0.0, 15445, #0.2, #0.3] } | (__bustub_inte
   SeqScan { table=test_1 } | (test_1.colA:INTEGER, test_1.colB:INTEGER, test_1.colC:INTEGER, test_1.colD:INTEGER)
 ```
 
-UpdateExecutor修改指定表中的现有元组。执行器将生成一个整数类型的元组作为输出，表示已更新的行数。请记得更新受更新影响的任何索引。
+`UpdateExecutor`修改指定表中的现有元组。执行器将生成一个整数类型的元组作为输出，表示已更新的行数。**请记得更新受更新影响的任何索引。**
 
 提示：
 
-* 要实现更新操作，首先删除受影响的元组，然后插入一个新的元组。除非你正在为project#4实现排行榜优化，否则不要使用TableHeap的UpdateTupleInplaceUnsafe函数。
+* 要实现更新操作，首先**删除受影响的元组**，然后**插入一个新的元组**。除非你正在为project#4实现排行榜优化，否则不要使用`TableHeap`的`UpdateTupleInplaceUnsafe`函数。
 
+总结：
+
+* 更新元组的元数据
+* 覆盖已有数据的值
+* 索引更新
+
+### 思路
+
+* 目标：修改指定表的元组
+* 要获取的成员变量：
+  1. 要操作的表
+  2. 表关联的索引
+  3. 该表是否已经执行过的标记
+* 步骤：
+  1. 删除
+  2. 插入
+  3. 更新相关索引：先删除旧索引再插入新索引，孩子节点初始化
+  4. 返回更新的函数
