@@ -142,8 +142,23 @@ Update { table_oid=20, target_exprs=[#0.0, 15445, #0.2, #0.3] } | (__bustub_inte
   2. 表关联的索引
   3. 该表是否已经执行过的标记
 * 步骤：
-  1. 删除
-  2. 插入
+  1. 删除元组tuple
+  2. 插入元组
   3. 更新相关索引：先删除旧索引再插入新索引，孩子节点初始化
   4. 返回更新的函数
-*
+* 构造函数 UpdateExecutor ：对成员变量初始化
+  1. plan\_
+  2. 子执行器child\_executor\_：由于这是独占指针，因此需要std::move转移
+* 初始化 Init ：初始化一些未在构造函数初始化的成员变量
+  1. table\_id\_
+  2. table\_info\_：从系统表中获取
+  3. index\_list\_：关联的索引，也从系统表中获取
+  4. 子执行器child\_executor\_的初始化：否则可能产生内存泄漏
+* Next ：调用后告诉使用者更新了几行数据
+  1. 若子执行器为空，直接返回false
+  2. while循环，依次调用子节点的Next方法获取有关的tuple
+  3. 删除原tuple（meta.is\_delete\_标记为true），meta通过表提供的函数GetTupleMeta获取
+  4. 新元组插入，插入前对元素进行更新（Evaluate函数）
+  5. 更新索引：删除和插入都只需要部分tuple信息（KeyFromTuple函数）
+  6. 记录更新函数
+
