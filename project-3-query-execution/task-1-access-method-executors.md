@@ -162,3 +162,47 @@ Update { table_oid=20, target_exprs=[#0.0, 15445, #0.2, #0.3] } | (__bustub_inte
   5. 更新索引：删除和插入都只需要部分tuple信息（KeyFromTuple函数）
   6. 记录更新函数
 
+## Delete 删除
+
+DeletePlanNode可以用DELETE语句进行计划。它只有一个子节点，其中包含要从表中删除的记录。你的删除执行器应该生成一个整数输出，表示它从表中删除的行数。它还需要更新任何受影响的索引。
+
+```sql
+bustub> EXPLAIN (o,s) DELETE FROM t1;
+=== OPTIMIZER ===
+Delete { table_oid=15 } | (__bustub_internal.delete_rows:INTEGER)
+  Filter { predicate=true } | (t1.v1:INTEGER, t1.v2:VARCHAR)
+    SeqScan { table=t1 } | (t1.v1:INTEGER, t1.v2:VARCHAR)
+
+bustub> EXPLAIN (o,s) DELETE FROM t1 where v1 = 1;
+=== OPTIMIZER ===
+Delete { table_oid=15 } | (__bustub_internal.delete_rows:INTEGER)
+  Filter { predicate=#0.0=1 } | (t1.v1:INTEGER, t1.v2:VARCHAR)
+    SeqScan { table=t1 } | (t1.v1:INTEGER, t1.v2:VARCHAR)
+```
+
+在出现DeleteExecutor的查询计划中，你可以假设DeleteExecutor始终位于根节点。DeleteExecutor不应修改其结果集。
+
+提示：
+
+* 要删除一个元组，你需要从子执行器获取一个RID，并更新该元组对应的TupleMeta中的is\_deleted\_字段。所有的删除操作将在事务提交时应用。
+
+### 目标文件
+
+* `bustub/src/include/execution/executors/delete_executor.h`
+* `bustub/src/execution/delete_executor.h`
+
+### 思路
+
+* 目标：从一张表中删除几行满足要求的元组
+* 依次实现：构造函数->Init函数（子节点初始化）->Next函数
+* Next：返回表中删除的行数
+  1. 返回删除的Tuple数量
+  2. 循环调用子节点的Next
+     1. 标记TupleMeta已删除，并更新数据
+     2. 删除相应的索引
+  3.
+* 成员变量
+  1. 操作的表`TableInfo`
+  2. 表的索引
+  3. 是否已执行Next方法 `bool is_end_`
+
