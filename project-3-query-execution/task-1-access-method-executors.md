@@ -125,6 +125,15 @@ Update { table_oid=20, target_exprs=[#0.0, 15445, #0.2, #0.3] } | (__bustub_inte
 * 覆盖已有数据的值
 * 索引更新
 
+<figure><img src="../.gitbook/assets/index.svg" alt=""><figcaption><p>索引类图</p></figcaption></figure>
+
+* 操作时拿到表关联的索引，然后对索引做操作
+
+### 目标文件
+
+* `bustub/src/include/execution/executors/update_executor.h`
+* `bustub/src/execution/update_executor.h`
+
 ### 思路
 
 * 目标：修改指定表的元组
@@ -137,3 +146,4 @@ Update { table_oid=20, target_exprs=[#0.0, 15445, #0.2, #0.3] } | (__bustub_inte
   2. 插入
   3. 更新相关索引：先删除旧索引再插入新索引，孩子节点初始化
   4. 返回更新的函数
+*
