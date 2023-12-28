@@ -102,3 +102,20 @@ Insert { table_oid=15 } | (__bustub_internal.insert_rows:INTEGER)
 * 依次插入到对应的表中
 * 记录成功的条数，返回给调用者
 
+## Update 更新
+
+UpdatePlanNode可以用UPDATE句段来计划。它只有一个子节点，其中包含要在表中更新的记录。
+
+```sql
+bustub> explain (o,s) update test_1 set colB = 15445;
+=== OPTIMIZER ===
+Update { table_oid=20, target_exprs=[#0.0, 15445, #0.2, #0.3] } | (__bustub_internal.update_rows:INTEGER)
+  SeqScan { table=test_1 } | (test_1.colA:INTEGER, test_1.colB:INTEGER, test_1.colC:INTEGER, test_1.colD:INTEGER)
+```
+
+UpdateExecutor修改指定表中的现有元组。执行器将生成一个整数类型的元组作为输出，表示已更新的行数。请记得更新受更新影响的任何索引。
+
+提示：
+
+* 要实现更新操作，首先删除受影响的元组，然后插入一个新的元组。除非你正在为project#4实现排行榜优化，否则不要使用TableHeap的UpdateTupleInplaceUnsafe函数。
+
