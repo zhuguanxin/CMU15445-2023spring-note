@@ -238,3 +238,8 @@ tree_ = dynamic_cast<BPlusTreeIndexForTwoIntegerColumn *>(index_info_->index_.ge
 * 现在你已经实现了所有与存储有关的执行器，你可以自行创建表格并插入值来测试执行器的实现。此时，你应该已经通过了SQLLogicTests#1-#6的测试。
 * 我们不会向有索引的表中插入重复的行。
 
+### 目标文件
+
+* `src/include/execution/index_scan_executor.h`
+* `src/execution/index_scan_executor.cpp`
+
