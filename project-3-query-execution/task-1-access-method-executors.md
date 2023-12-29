@@ -206,3 +206,35 @@ Delete { table_oid=15 } | (__bustub_internal.delete_rows:INTEGER)
   2. 表的索引
   3. 是否已执行Next方法 `bool is_end_`
 
+## IndexScan 索引扫描
+
+IndexScanExecutor是一个遍历索引的操作符，用于检索存储在元组中的RID(记录标识符)。然后，操作符使用这些RID在相应的表中检索它们所对应的元组。它然后逐个发出这些元组。
+
+你可以通过执行`SELECT FROM <table> ORDER BY <index column>`测试索引扫描执行程序。我们将在task#3解释为什么ORDER BY可转换为索引扫描。
+
+```sql
+bustub> CREATE TABLE t2(v3 int, v4 int);
+Table created with id = 16
+
+bustub> CREATE INDEX t2v3 ON t2(v3);
+Index created with id = 0
+
+bustub> EXPLAIN (o,s) SELECT * FROM t2 ORDER BY v3;
+=== OPTIMIZER ===
+IndexScan { index_oid=0 } | (t2.v3:INTEGER, t2.v4:INTEGER)
+```
+
+在这个项目中，计划中索引对象的类型将始终为`BPlusTreeIndexForTwoIntergerColumn`。你可以安全地将其强制转换并存储在执行器中。
+
+```cpp
+tree_ = dynamic_cast<BPlusTreeIndexForTwoIntegerColumn *>(index_info_->index_.get())
+```
+
+你可以从索引对象构建一个索引迭代器，通过所有键和元组ID进行扫描，从表堆中查找元组，并按照顺序发出所有元组。BusTub仅支持具有单个唯一整数列的索引。我们的测试用例不会包含重复的键。
+
+提示：
+
+* 与上述相同，不要发出已删除的元组。
+* 现在你已经实现了所有与存储有关的执行器，你可以自行创建表格并插入值来测试执行器的实现。此时，你应该已经通过了SQLLogicTests#1-#6的测试。
+* 我们不会向有索引的表中插入重复的行。
+
