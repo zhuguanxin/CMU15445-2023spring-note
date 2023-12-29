@@ -243,3 +243,26 @@ tree_ = dynamic_cast<BPlusTreeIndexForTwoIntegerColumn *>(index_info_->index_.ge
 * `src/include/execution/index_scan_executor.h`
 * `src/execution/index_scan_executor.cpp`
 
+### 思路
+
+* 目标：遍历索引，把符合条件的tuple统计出来
+* P2中实现了B+树，`BPlusTreeIndex`继承自`Index`
+* `BPlusTreeIndexForTwoIntegerColumn`是一种特殊的`BPlusTreeIndex`，`BPlusTreeIndex`是一个模板，`BPlusTreeIndexForTwoIntegerColumn`指定了模板的类型
+* 只有`order by`后面的属性类存在索引，走index\_scan，否则走sort
+* 如果tuple已删除，跳过
+* 成员变量：计划节点plan\_，表的信息TableInfo，索引信息BPlusTreeIndexForTwoIntegerColumn，迭代器BPlusTreeIndexIteratorForTwoIntegerColumn
+
+
+
+一些问题：
+
+* Q：索引中存储的内容是什么？
+  * A：P2task#3中实现的迭代器，迭代器指向的值是`std::pair<KeyType,ValueType>`类型，即`page_id`和`rid`，通过rid即可获得对应的元组tuple
+* Q：`index_scan`和`seq_scan`的异同？
+  * A：共同点：
+    * 都是select \* from table ...
+    * index\_scan和seq\_scan调用Next函数时，都是返回tuple
+  *   不同点：
+
+      * index\_scan后面跟一个order by，order by后面的列正好是创建过的索引
+
