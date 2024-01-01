@@ -26,3 +26,4 @@
 ## PROJECT#3 Query Execution
 
 * [task#1 Access Method Executors](project-3-query-execution/task-1-access-method-executors.md)
+* [task#2 Aggregation & Join Executors](project-3-query-execution/task-2-aggregation-and-join-executors.md)
