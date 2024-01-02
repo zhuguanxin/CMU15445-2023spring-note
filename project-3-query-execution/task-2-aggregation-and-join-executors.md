@@ -92,4 +92,9 @@ EXPLAIN SELECT * FROM __mock_table_1 LEFT OUTER JOIN __mock_table_3 ON colA = co
 * 你将需要使用`NestedLoopJoinPlanNode`中的谓词。特别地，请查看`AbstractExpression::EvaluateJoin`，它处理左元组和右元组及其各自的模式。请注意，此函数返回一个值，可能为false，true或者NULL。请参阅FilterExecutor以了解如何在元组上应用谓词。
 * [SQL中左联接、右联接、等值联接的区别](https://www.jianshu.com/p/e7e6ce1200a4)
 * [火山模型概念简介](https://zhuanlan.zhihu.com/p/478851521)
+* [执行流程动画](https://cs186berkeley.net/resources/join-animations/)
+
+### 思路
+
+* 先在外层的Next函数调用tuple，然后在内层用for循环遍历缓冲到内存中的数组。匹配成功返回，用变量记录for循环遍历到的位置，接着往下继续遍历，防止漏匹配。
 
