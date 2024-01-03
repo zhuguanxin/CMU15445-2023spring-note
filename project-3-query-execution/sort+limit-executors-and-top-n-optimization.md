@@ -71,3 +71,10 @@ EXPLAIN SELECT * FROM __mock_table_1 ORDER BY colA LIMIT 10;
 
 ### 思路
 
+* 成员函数：
+  1. Constructor()
+  2. Init()：在初始化阶段就需要把前N个元素准备好
+  3. Next()
+* 优化器：
+  * 将sort和limit算子转换为topn算子
+
