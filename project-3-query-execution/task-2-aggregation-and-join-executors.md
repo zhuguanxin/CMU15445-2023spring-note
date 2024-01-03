@@ -165,4 +165,7 @@ bustub> EXPLAIN (o) SELECT * FROM test_1 t1, test_2 t2 WHERE t1.colA = t2.colA A
 
 优化器规则：
 
-*
+* 自底向上
+* 递归处理子节点
+* 每个计划节点，需要判断结构是否匹配，检查属性是否能被优化为目标结构
+
