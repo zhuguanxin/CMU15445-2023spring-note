@@ -65,8 +65,9 @@ EXPLAIN SELECT * FROM __mock_table_1 ORDER BY colA LIMIT 10;
 
 ### 目标文件
 
-* `topn_executor.cpp`
-* `topn_executor.h`
+* `src/executor/topn_executor.cpp`
+* `src/include/executor/topn_executor.h`
+* `src/optimizer/sort_limit_as_topn.cpp`
 
 ### 思路
 
