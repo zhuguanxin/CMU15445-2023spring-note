@@ -58,3 +58,15 @@ EXPLAIN SELECT * FROM __mock_table_1 ORDER BY colA LIMIT 10;
 * 获取前10个元素，这显然是低效的，因为查询只需要最小的值。更智能的做法是动态跟踪到目前为止最小的10个元素。
 * 需要将order by+limit子句转换为TopN executor
 
+### 优先队列 priority\_queue
+
+* [set/map/priority\_queue实现自定义排序](https://blog.csdn.net/SYaoJun/article/details/106976964)
+* 使用堆动态维护前N个数据，超过N个时，弹出不满足要求的
+
+### 目标文件
+
+* `topn_executor.cpp`
+* `topn_executor.h`
+
+### 思路
+
