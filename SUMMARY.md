@@ -27,4 +27,4 @@
 
 * [task#1 Access Method Executors](project-3-query-execution/task-1-access-method-executors.md)
 * [task#2 Aggregation & Join Executors](project-3-query-execution/task-2-aggregation-and-join-executors.md)
-* [Sort+Limit Executors and Top-N Optimization](project-3-query-execution/sort+limit-executors-and-top-n-optimization.md)
+* [task#3 Sort+Limit Executors and Top-N Optimization](project-3-query-execution/task-3-sort+limit-executors-and-top-n-optimization.md)
