@@ -28,3 +28,7 @@
 * [task#1 Access Method Executors](project-3-query-execution/task-1-access-method-executors.md)
 * [task#2 Aggregation & Join Executors](project-3-query-execution/task-2-aggregation-and-join-executors.md)
 * [task#3 Sort+Limit Executors and Top-N Optimization](project-3-query-execution/task-3-sort+limit-executors-and-top-n-optimization.md)
+
+## PROJECT#4 CONCURRENCY CONTROL
+
+* [task#1 Lock Manager](project-4-concurrency-control/task-1-lock-manager.md)
