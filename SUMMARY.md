@@ -32,3 +32,5 @@
 ## PROJECT#4 CONCURRENCY CONTROL
 
 * [task#1 Lock Manager](project-4-concurrency-control/task-1-lock-manager.md)
+* [task#2 Deadlock Detection](project-4-concurrency-control/task-2-deadlock-detection.md)
+* [task#3 Concurrent Query Execution](project-4-concurrency-control/task-3-concurrent-query-execution.md)

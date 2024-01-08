@@ -27,7 +27,7 @@ description: 访问方法执行程序
 
 ## SeqScan 顺序扫描
 
-[`SeqScanPlanNode`](https://github.com/cmu-db/bustub/blob/master/src/include/execution/plans/seq\_scan\_plan.h)可以使用`SELECT * FROM table`语句进行计划。
+`SeqScanPlanNode`可以使用`SELECT * FROM table`语句进行计划。
 
 ```sql
 bustub> CREATE TABLE t1(v1 INT, v2 VARCHAR(100));
@@ -42,7 +42,7 @@ SeqScanExecutor迭代遍历表格并逐个返回其元组。
 提示：
 
 * 确保你理解在使用`TableIterator`对象时，使用前++和后++运算符之间的区别。如果你混淆了`++iter`和`iter++`，可能会得到奇怪的输出。
-* 不要发出在TableHeap中删除的元组。检查每个元组的相应[`TupleMeta`](https://github.com/cmu-db/bustub/blob/master/src/include/storage/table/tuple.h)`is_deleted_` 字段。
+* 不要发出在TableHeap中删除的元组。检查每个元组的相应`TupleMetais_deleted_` 字段。
 * 顺序扫描的输出是每个匹配元组及其原始记录标识符RID的副本。
 * BusTub不支持DROP TABLE或者DROP INDEX。你可以通过重新启动shell来重置shell。
 
